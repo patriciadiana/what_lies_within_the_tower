@@ -128,10 +128,4 @@ public class PlayerMovement : MonoBehaviour
             onStairs = false;
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, orientation.forward * 5);
-    }
 }
