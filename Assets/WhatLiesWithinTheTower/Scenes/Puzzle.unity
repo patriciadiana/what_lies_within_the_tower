@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -25,8 +25,8 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubtractiveShadowColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d11d338e6a849d84f85a289f91b3fa00, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -152,7 +152,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -250,7 +250,6 @@ GameObject:
   m_Component:
   - component: {fileID: 912149862}
   - component: {fileID: 912149861}
-  - component: {fileID: 912149860}
   - component: {fileID: 912149863}
   m_Layer: 0
   m_Name: Main Camera
@@ -259,14 +258,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &912149860
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912149859}
-  m_Enabled: 1
 --- !u!20 &912149861
 Camera:
   m_ObjectHideFlags: 0
@@ -327,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 912149859}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 25, z: 0}
+  m_LocalPosition: {x: 0, y: 50, z: 6.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -438,7 +429,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 39838e8311875d24e96788a9a36c93bc, type: 2}
+  - {fileID: 2100000, guid: 779d5b1e8b9889b4d8c6714f522240a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -477,8 +468,8 @@ Transform:
   m_GameObject: {fileID: 1549612869}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0521, y: -0.01, z: -0.5547}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 2.9876, y: -0.01, z: 12.7344}
+  m_LocalScale: {x: 14.51957, y: 5, z: 10.368518}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -572,7 +563,7 @@ Transform:
   m_GameObject: {fileID: 2587564419200062031}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.10000001, y: 0, z: 3.4499998}
+  m_LocalPosition: {x: 0.14, y: 0, z: 3.44}
   m_LocalScale: {x: 20.890991, y: 125.75644, z: 129.19838}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,7 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &2587564419200062033
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -743,8 +734,8 @@ Transform:
   m_GameObject: {fileID: 3209750196592279994}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4056438146343997877}
@@ -858,6 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd13abd5eb5a4d04bb3542ab825b1399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleFinishedText: {fileID: 0}
 --- !u!1 &3356073519607101232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,7 +1105,7 @@ Transform:
   m_GameObject: {fileID: 8798500143462436846}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.10000001, y: 0, z: 3.4499998}
+  m_LocalPosition: {x: 0.13, y: 0, z: 3.43}
   m_LocalScale: {x: 20.890991, y: 125.75644, z: 129.19838}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1159,7 +1151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &6149942652536809890
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1244,7 +1236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &6207401605036600391
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1309,7 +1301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &6332900657240228825
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1386,7 +1378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &6696727974616226477
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1481,7 +1473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &7680878698951675068
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1573,7 +1565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &8137040767652114810
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1616,7 +1608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &8198863597384506170
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1671,7 +1663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &8798500143462436848
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1714,7 +1706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 0.3
+  snapOffset: 1
 --- !u!64 &8987074480634637499
 MeshCollider:
   m_ObjectHideFlags: 0
