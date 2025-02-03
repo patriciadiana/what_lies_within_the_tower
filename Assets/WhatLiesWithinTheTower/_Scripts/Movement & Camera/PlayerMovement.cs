@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving && footstepTimer <= 0f)
         {
-            SoundManager.PlaySound(SoundType.FOOTSTEPS, 0.5f);
+            SoundManager.PlaySound(SoundType.FOOTSTEPS, 0.1f);
             footstepTimer = footstepCooldown;
         }
     }

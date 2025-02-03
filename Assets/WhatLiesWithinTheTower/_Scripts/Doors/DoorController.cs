@@ -11,7 +11,8 @@ public class DoorController : MonoBehaviour
     public enum DoorType
     {
         House,
-        Tower
+        Tower,
+        Cabin
     }
 
     public DoorType doorType;
@@ -44,6 +45,10 @@ public class DoorController : MonoBehaviour
                 SoundManager.PlaySound(SoundType.CLOSEDOOR, 1f);
                 door.Play("TowerDoorClose");
                 break;
+            case DoorType.Cabin:
+                SoundManager.PlaySound(SoundType.CLOSEDOOR, 1f);
+                door.Play("CabinDoorClose");
+                break;
             default:
                 Debug.LogError("Unrecognized door type!");
                 break;
@@ -62,6 +67,10 @@ public class DoorController : MonoBehaviour
             case DoorType.Tower:
                 SoundManager.PlaySound(SoundType.OPENDOOR, 1f);
                 door.Play("TowerDoorOpen");
+                break;
+            case DoorType.Cabin:
+                SoundManager.PlaySound(SoundType.OPENDOOR, 1f);
+                door.Play("CabinDoorOpen");
                 break;
             default:
                 Debug.LogError("Unrecognized door type!");

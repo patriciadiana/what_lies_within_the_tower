@@ -4,10 +4,26 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public static Inventory Instance;
+
     private HashSet<string> items = new HashSet<string>();
 
     public Transform inventorySlotsParent;
     public Sprite keySprite;
+    public Sprite potionSprite;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void AddItem(string itemName)
     {
@@ -40,6 +56,12 @@ public class Inventory : MonoBehaviour
                     slotImage.enabled = true;
                     slotImage.color = Color.white;
                 }
+                else if (itemName == "Potion")
+                {
+                    slotImage.sprite = potionSprite;
+                    slotImage.enabled = true;
+                    slotImage.color = Color.white;
+                }
                 return;
             }
         }
@@ -47,18 +69,32 @@ public class Inventory : MonoBehaviour
 
     private void RemoveItemFromUI(string itemName)
     {
+        Sprite itemSprite = null;
+
+        if (itemName == "TowerKey")
+        {
+            itemSprite = keySprite;
+        }
+        else if (itemName == "Potion")
+        {
+            itemSprite = potionSprite;
+        }
+
+        if (itemSprite == null) return;
+
         foreach (Transform slot in inventorySlotsParent)
         {
             Image slotImage = slot.GetComponentInChildren<Image>();
-            if (slotImage != null && slotImage.sprite == keySprite)
+            if (slotImage != null && slotImage.sprite == itemSprite)
             {
                 slotImage.sprite = null;
                 slotImage.enabled = false;
                 slotImage.color = Color.white;
-                return; 
+                return;
             }
         }
     }
+
 
     public bool HasItem(string itemName)
     {

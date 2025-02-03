@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Interaction : MonoBehaviour
@@ -11,20 +12,29 @@ public class Interaction : MonoBehaviour
     public GameObject doorText;
     public GameObject noteText;
     public GameObject keyText;
+    public GameObject potionText;
     public GameObject puzzleText;
+    public GameObject morphText;
     public GameObject note;
 
     public LayerMask doorLayer;
     public LayerMask towerDoorLayer;
+    public LayerMask cabinDoorLayer;
     public LayerMask noteLayer;
     public LayerMask towerKeyLayer;
     public LayerMask puzzleLayer;
+    public LayerMask potionLayer;
+    public LayerMask morphLayer;
+    public LayerMask bookLayer;
+    public LayerMask slimeLayer;
 
     public Transform orientation;
 
     private Camera mainCamera;
     private Vector3 rayOrigin;
     private Vector3 rayDirection;
+
+    public Animator doorAnimator;
 
     private int rayLength = 3;
 
@@ -33,23 +43,27 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        playerInventory = player.GetComponent<Inventory>();
+        playerInventory = Inventory.Instance;
     }
 
     private void setTextActive()
     {
         RaycastHit info;
-        LayerMask combinedMask = doorLayer | towerDoorLayer | noteLayer | towerKeyLayer | puzzleLayer;
+        LayerMask combinedMask = doorLayer | towerDoorLayer | cabinDoorLayer | noteLayer
+            | towerKeyLayer | potionLayer | puzzleLayer | morphLayer | bookLayer | slimeLayer;
 
         doorText.SetActive(false);
         noteText.SetActive(false);
         keyText.SetActive(false);
         puzzleText.SetActive(false);
+        potionText.SetActive(false);
+        morphText.SetActive(false);
 
         if (Physics.Raycast(rayOrigin, rayDirection, out info, rayLength, combinedMask))
         {
             if (((1 << info.collider.gameObject.layer) & doorLayer) != 0
-                || ((1 << info.collider.gameObject.layer) & towerDoorLayer) != 0)
+                || ((1 << info.collider.gameObject.layer) & towerDoorLayer) != 0
+                || ((1 << info.collider.gameObject.layer) & cabinDoorLayer) != 0)
             {
                 doorText.SetActive(true);
             }
@@ -61,9 +75,25 @@ public class Interaction : MonoBehaviour
             {
                 keyText.SetActive(true);
             }
+            else if (((1 << info.collider.gameObject.layer) & potionLayer) != 0)
+            {
+                potionText.SetActive(true);
+            }
             else if (((1 << info.collider.gameObject.layer) & puzzleLayer) != 0)
             {
                 puzzleText.SetActive(true);
+            }
+            else if (((1 << info.collider.gameObject.layer) & morphLayer) != 0)
+            {
+                morphText.SetActive(true);
+            }
+            else if (((1 << info.collider.gameObject.layer) & bookLayer) != 0)
+            {
+                morphText.SetActive(true);
+            }
+            else if (((1 << info.collider.gameObject.layer) & slimeLayer) != 0)
+            {
+                morphText.SetActive(true);
             }
         }
     }
@@ -71,28 +101,41 @@ public class Interaction : MonoBehaviour
     private void InteractionWithObject()
     {
         RaycastHit info;
-        LayerMask combinedMask = doorLayer | towerDoorLayer | noteLayer | towerKeyLayer | puzzleLayer;
+        LayerMask combinedMask = doorLayer | towerDoorLayer | cabinDoorLayer | noteLayer | towerKeyLayer 
+            | potionLayer | puzzleLayer | morphLayer | bookLayer | slimeLayer;
 
         if (Physics.Raycast(rayOrigin, rayDirection, out info, rayLength, combinedMask))
         {
             if (((1 << info.collider.gameObject.layer) & towerKeyLayer) != 0)
             {
                 playerInventory.AddItem("TowerKey");
+                SoundManager.PlaySound(SoundType.PICKUPKEY, 1f);
+                Destroy(info.collider.gameObject);
+            }
+            else if (((1 << info.collider.gameObject.layer) & potionLayer) != 0)
+            {
+                playerInventory.AddItem("Potion");
                 Destroy(info.collider.gameObject);
             }
             else if (((1 << info.collider.gameObject.layer) & doorLayer) != 0
-                || ((1 << info.collider.gameObject.layer) & towerDoorLayer) != 0)
+                || ((1 << info.collider.gameObject.layer) & towerDoorLayer) != 0
+                || ((1 << info.collider.gameObject.layer) & cabinDoorLayer) != 0)
             {
                 DoorController door = info.collider.GetComponent<DoorController>();
                 if (door != null)
                 {
                     if (door.doorType == DoorController.DoorType.Tower && !playerInventory.HasItem("TowerKey"))
                     {
-                        Debug.Log("You need the tower key to open this door!");
+                        SoundManager.PlaySound(SoundType.LOCKEDDOOR, 0.6f);
+                        doorAnimator.Play("LockedDoor", 0, 0f);
+                    }
+                    else if (door.doorType == DoorController.DoorType.Tower && playerInventory.HasItem("TowerKey"))
+                    {
+                        playerInventory.RemoveItem("TowerKey");
+                        door.Interact();
                     }
                     else
                     {
-                        playerInventory.RemoveItem("TowerKey");
                         door.Interact();
                     }
                 }
@@ -113,6 +156,30 @@ public class Interaction : MonoBehaviour
                     puzzle.Interact();
                 }
             }
+            else if (((1 << info.collider.gameObject.layer) & morphLayer) != 0)
+            {
+                StartMorph morphPuzzle = info.collider.GetComponent<StartMorph>();
+                if (morphPuzzle != null)
+                {
+                    morphPuzzle.Interact();
+                }
+            }
+            else if (((1 << info.collider.gameObject.layer) & bookLayer) != 0)
+            {
+                BookInteraction book = info.collider.GetComponent<BookInteraction>();
+                if (book != null)
+                {
+                    book.Interact();
+                }
+            }
+            else if (((1 << info.collider.gameObject.layer) & slimeLayer) != 0)
+            {
+                Start2DPuzzle slime = info.collider.GetComponent<Start2DPuzzle>();
+                if (slime != null)
+                {
+                    slime.Interact();
+                }
+            }
         }
     }
 
@@ -126,12 +193,16 @@ public class Interaction : MonoBehaviour
             InteractionWithObject();
         }
 
-        setTextActive();
-    }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    if(playerInventory.HasItem("Potion"))
+        //    {
+        //        playerInventory.RemoveItem("Potion");
+        //        GameManager.Instance.SetLevelComplete(3);
+        //        SceneManager.LoadScene("MainScene");
+        //    }
+        //}
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red; // Set the color of the gizmo ray.
-        Gizmos.DrawRay(rayOrigin, rayDirection);
+        setTextActive();
     }
 }

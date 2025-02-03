@@ -84,7 +84,10 @@ public class Grabber : MonoBehaviour
     {
         if (placedPiecesCount == totalPieces)
         {
+            GameManager.Instance.SetLevelComplete(1);
+            GameManager.Instance.SetLevelComplete(2);
             SceneManager.LoadScene("MainScene");
+            placedPiecesCount = 0;
         }
     }
 }

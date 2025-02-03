@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 912149862}
   - component: {fileID: 912149861}
   - component: {fileID: 912149863}
+  - component: {fileID: 912149864}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -368,6 +369,14 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!81 &912149864
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912149859}
+  m_Enabled: 1
 --- !u!1 &1549612869
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +483,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1803058648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803058649}
+  - component: {fileID: 1803058650}
+  m_Layer: 0
+  m_Name: DeletePlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1803058649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803058648}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.16087723, y: 17.290981, z: -36.395584}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1803058650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803058648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1700980409a9e64e97a029ff7afd070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &306668422471672852
 Transform:
   m_ObjectHideFlags: 0
@@ -849,7 +902,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd13abd5eb5a4d04bb3542ab825b1399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleFinishedText: {fileID: 0}
 --- !u!1 &3356073519607101232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,3 +1789,4 @@ SceneRoots:
   - {fileID: 511359819}
   - {fileID: 1549612873}
   - {fileID: 2864432714641038080}
+  - {fileID: 1803058649}
