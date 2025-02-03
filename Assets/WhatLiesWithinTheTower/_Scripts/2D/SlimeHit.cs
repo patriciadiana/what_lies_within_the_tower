@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SlimeHit : MonoBehaviour
 {
@@ -26,5 +27,6 @@ public class SlimeHit : MonoBehaviour
     public void DestroyObject()
     {
         Destroy(gameObject);
+        SceneManager.LoadScene("MainScene");
     }
 }

@@ -22,11 +22,11 @@ TagManager:
   - noteLayer
   - towerKeyLayer
   - puzzleLayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - cabinDoorLayer
+  - potionLayer
+  - morphLayer
+  - bookLayer
+  - slimeLayer
   - 
   - 
   - 
