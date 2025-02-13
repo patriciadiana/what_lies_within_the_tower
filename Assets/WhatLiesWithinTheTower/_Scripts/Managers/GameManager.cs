@@ -4,10 +4,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField]
+    private GameObject player;
 
     private Vector3 playerPosition;
-    private Vector3 spawnPosition = new Vector3(0.773299575f, 2.07378221f, 0.816766262f);
+    private Vector3 spawnPosition = new Vector3(-2.53999996f, 1.83899999f, 0.00999999978f);
     private bool hasSavedPosition = false;
+    private bool isLockOpened = false;
 
     public GameObject hatchLevel1;
     public GameObject hatchLevel2;
@@ -35,19 +38,28 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
 
         if (player != null)
         {
             Rigidbody rb = player.GetComponent<Rigidbody>();
+
             if (scene.name == "MorphPuzzle")
             {
+                player.SetActive(true);
                 rb.MovePosition(spawnPosition);
             }
             else if (scene.name == "MainScene" && hasSavedPosition)
             {
                 ActivateUnlockedHatches();
                 rb.MovePosition(playerPosition);
+            }
+            else if (scene.name == "PadLockScene")
+            {
+                player.SetActive(false);
             }
         }
     }
@@ -94,5 +106,15 @@ public class GameManager : MonoBehaviour
             case 3: activateLevel3 = true; break;
             case 4: activateLevel4 = true; break;
         }
+    }
+
+    public void SetLockOpened(bool opened)
+    {
+        isLockOpened = opened;
+    }
+
+    public bool GetLockOpened()
+    {
+        return isLockOpened;
     }
 }

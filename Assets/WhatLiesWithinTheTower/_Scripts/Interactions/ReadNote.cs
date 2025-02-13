@@ -12,11 +12,13 @@ public class ReadNote : MonoBehaviour
     void Start()
     {
         note.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Interact()
     {
         note.SetActive(true);
+        SoundManager.PlaySound(SoundType.PICKUPNOTE, 1f);
         player.GetComponent<PlayerMovement>().enabled = false;
         isNoteActive = true;
     }

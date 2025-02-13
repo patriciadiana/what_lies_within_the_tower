@@ -17,7 +17,6 @@ public class Grabber : MonoBehaviour
 
     private void Update()
     {
-        // Your existing code for puzzle mechanics...
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedObject == null)
@@ -25,6 +24,7 @@ public class Grabber : MonoBehaviour
                 RaycastHit hit = CastRay();
                 if (hit.collider != null && hit.collider.CompareTag("drag"))
                 {
+                    SoundManager.PlaySound(SoundType.GRABPIECE, 1f);
                     selectedObject = hit.collider.gameObject;
 
                     Vector3 objectScreenPos = Camera.main.WorldToScreenPoint(selectedObject.transform.position);

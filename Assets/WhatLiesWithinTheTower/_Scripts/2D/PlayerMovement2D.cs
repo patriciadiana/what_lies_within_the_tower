@@ -35,7 +35,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void PerformAttack()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1f, attackLayerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f, attackLayerMask);
         if (hit.collider != null)
         {
             int hitLayer = hit.collider.gameObject.layer;
@@ -50,10 +50,12 @@ public class PlayerMovement2D : MonoBehaviour
             }
             else if (hitLayer == LayerMask.NameToLayer("slime"))
             {
-                SlimeHit obstacle = hit.collider.GetComponent<SlimeHit>();
-                if (obstacle != null)
+                SlimeHit slime = hit.collider.GetComponent<SlimeHit>();
+                if (slime != null)
                 {
-                    obstacle.Hit();
+                    Vector2 knockbackDirection = (hit.collider.transform.position - transform.position).normalized;
+
+                    slime.Hit(knockbackDirection);
                 }
             }
         }
