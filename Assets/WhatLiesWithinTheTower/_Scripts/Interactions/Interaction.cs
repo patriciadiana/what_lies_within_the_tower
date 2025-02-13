@@ -27,6 +27,7 @@ public class Interaction : MonoBehaviour
     public LayerMask morphLayer;
     public LayerMask bookLayer;
     public LayerMask slimeLayer;
+    public LayerMask padlockLayer;
 
     public Transform orientation;
 
@@ -50,7 +51,7 @@ public class Interaction : MonoBehaviour
     {
         RaycastHit info;
         LayerMask combinedMask = doorLayer | towerDoorLayer | cabinDoorLayer | noteLayer
-            | towerKeyLayer | potionLayer | puzzleLayer | morphLayer | bookLayer | slimeLayer;
+            | towerKeyLayer | potionLayer | puzzleLayer | morphLayer | bookLayer | slimeLayer | padlockLayer;
 
         doorText.SetActive(false);
         noteText.SetActive(false);
@@ -95,6 +96,10 @@ public class Interaction : MonoBehaviour
             {
                 morphText.SetActive(true);
             }
+            else if (((1 << info.collider.gameObject.layer) & padlockLayer) != 0)
+            {
+                morphText.SetActive(true);
+            }
         }
     }
 
@@ -102,7 +107,7 @@ public class Interaction : MonoBehaviour
     {
         RaycastHit info;
         LayerMask combinedMask = doorLayer | towerDoorLayer | cabinDoorLayer | noteLayer | towerKeyLayer 
-            | potionLayer | puzzleLayer | morphLayer | bookLayer | slimeLayer;
+            | potionLayer | puzzleLayer | morphLayer | bookLayer | slimeLayer | padlockLayer;
 
         if (Physics.Raycast(rayOrigin, rayDirection, out info, rayLength, combinedMask))
         {
@@ -115,6 +120,7 @@ public class Interaction : MonoBehaviour
             else if (((1 << info.collider.gameObject.layer) & potionLayer) != 0)
             {
                 playerInventory.AddItem("Potion");
+                SoundManager.PlaySound(SoundType.PICKUPPOTION, 1f);
                 Destroy(info.collider.gameObject);
             }
             else if (((1 << info.collider.gameObject.layer) & doorLayer) != 0
@@ -166,11 +172,7 @@ public class Interaction : MonoBehaviour
             }
             else if (((1 << info.collider.gameObject.layer) & bookLayer) != 0)
             {
-                BookInteraction book = info.collider.GetComponent<BookInteraction>();
-                if (book != null)
-                {
-                    book.Interact();
-                }
+                /*TBD*/
             }
             else if (((1 << info.collider.gameObject.layer) & slimeLayer) != 0)
             {
@@ -178,6 +180,14 @@ public class Interaction : MonoBehaviour
                 if (slime != null)
                 {
                     slime.Interact();
+                }
+            }
+            else if (((1 << info.collider.gameObject.layer) & padlockLayer) != 0)
+            {
+                SolvePadlock padlock = info.collider.GetComponent<SolvePadlock>();
+                if (padlock != null)
+                {
+                    padlock.Interact();
                 }
             }
         }
@@ -193,15 +203,13 @@ public class Interaction : MonoBehaviour
             InteractionWithObject();
         }
 
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    if(playerInventory.HasItem("Potion"))
-        //    {
-        //        playerInventory.RemoveItem("Potion");
-        //        GameManager.Instance.SetLevelComplete(3);
-        //        SceneManager.LoadScene("MainScene");
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (playerInventory.HasItem("Potion"))
+            {
+                playerInventory.RemoveItem("Potion");
+            }
+        }
 
         setTextActive();
     }

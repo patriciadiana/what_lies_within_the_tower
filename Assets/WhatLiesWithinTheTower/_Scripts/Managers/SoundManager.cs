@@ -9,7 +9,12 @@ public enum SoundType
     OPENDOOR,
     CLOSEDOOR,
     LOCKEDDOOR,
-    PICKUPKEY
+    PICKUPKEY, 
+    PICKUPPOTION,
+    PICKUPNOTE,
+    GRABPIECE,
+    ROTATEPADLOCK,
+    UNLOCKPADLOCK
 }
 
 [RequireComponent(typeof(AudioSource))]

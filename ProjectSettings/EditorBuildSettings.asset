@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/WhatLiesWithinTheTower/Scenes/2DPuzzle.unity
     guid: cc5c484b9480df84ca2cbe3fbbd0203a
+  - enabled: 1
+    path: Assets/WhatLiesWithinTheTower/Scenes/PadLockScene.unity
+    guid: 57c6163a25f9a834a885be9b705d8b2b
   m_configObjects: {}

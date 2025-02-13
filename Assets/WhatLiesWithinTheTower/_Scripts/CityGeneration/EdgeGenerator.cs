@@ -70,12 +70,10 @@ public class EdgeGenerator : MonoBehaviour
         Vector3 startPos = startNode.Position;
         Vector3 endPos = endNode.Position;
 
-        // Instantiate the road prefab and align it between the two nodes
         GameObject road = Instantiate(roadPrefab);
-        road.transform.position = (startPos + endPos) / 2f;  // Place it in the middle of the nodes
-        road.transform.LookAt(endPos);  // Rotate the road to face the end node
+        road.transform.position = (startPos + endPos) / 2f;
+        road.transform.LookAt(endPos);
 
-        // Adjust the road's scale to match the distance between the nodes
         float distance = Vector3.Distance(startPos, endPos);
         road.transform.localScale = new Vector3(road.transform.localScale.x, road.transform.localScale.y, distance);
     }
@@ -145,11 +143,11 @@ public class EdgeGenerator : MonoBehaviour
         int Orientation(Vector3 p, Vector3 q, Vector3 r)
         {
             float val = (q.z - p.z) * (r.x - q.x) - (q.x - p.x) * (r.z - q.z);
-            if (Mathf.Approximately(val, 0)) return 0;  // collinear
-            return (val > 0) ? 1 : 2;                  // clock or counterclockwise
+            if (Mathf.Approximately(val, 0)) return 0; 
+            return (val > 0) ? 1 : 2;                 
         }
 
-        /* Check if point r lies on segment pq */
+        /* check if point r lies on segment pq */
         bool OnSegment(Vector3 p, Vector3 q, Vector3 r)
         {
             return Mathf.Min(p.x, q.x) <= r.x && r.x <= Mathf.Max(p.x, q.x) &&
@@ -161,7 +159,6 @@ public class EdgeGenerator : MonoBehaviour
         int o3 = Orientation(p2, q2, p1);
         int o4 = Orientation(p2, q2, q1);
 
-        /* General case */
         if (o1 != o2 && o3 != o4)
             return true;
 
@@ -177,7 +174,7 @@ public class EdgeGenerator : MonoBehaviour
         /* p2, q2, and q1 are collinear, and q1 lies on segment p2q2 */
         if (o4 == 0 && OnSegment(p2, q2, q1)) return true;
 
-        return false; // No intersection
+        return false;
     }
 
 

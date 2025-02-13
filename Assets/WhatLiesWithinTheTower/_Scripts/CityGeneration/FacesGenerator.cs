@@ -58,18 +58,17 @@ public class FacesGenerator : MonoBehaviour
 
                 if (endNode == null)
                 {
-                    Debug.LogError("Could not find a valid next edge, terminating face construction.");
                     break;
                 }
 
             } while (currentNode != startNode);
 
-            // If we completed a valid face, add it to the list
+            /* if a valid face is completed, add it to the list */
             if (currentNode == startNode && currentFace.Count > 0)
             {
                 faces.Add(currentFace);
 
-                if (UnityEngine.Random.Range(0f, 1f) > 0.5f) // 50% chance to skip
+                if (UnityEngine.Random.Range(0f, 1f) > 0.5f)
                     continue;
 
                 CreateCubesForFace(currentFace);
@@ -88,10 +87,9 @@ public class FacesGenerator : MonoBehaviour
         }
         center /= faceEdges.Count;
 
-        float radius = 10f; // Spread buildings farther apart
-        int buildingCount = 1; // Number of buildings per face
+        float radius = 10f; 
+        int buildingCount = 1;
 
-        // List to track placed building positions for checking overlaps
         List<Vector3> placedBuildings = new List<Vector3>();
 
         for (int i = 0; i < buildingCount; i++)
@@ -99,18 +97,16 @@ public class FacesGenerator : MonoBehaviour
             GameObject randomBuildingPrefab = buildingsPrefabs[UnityEngine.Random.Range(0, buildingsPrefabs.Length)];
             Vector3 newBuildingPosition;
 
-            int maxAttempts = 100; // Avoid infinite loops
+            int maxAttempts = 100;
             int attempts = 0;
 
             do
             {
-                // Generate a new random position around the center
                 newBuildingPosition = center + (Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0) * new Vector3(radius, 0, 0));
                 attempts++;
             }
             while (attempts < maxAttempts && placedBuildings.Any(pos => Vector3.Distance(pos, newBuildingPosition) < radius));
 
-            // Place the building and add its position to the list
             Instantiate(randomBuildingPrefab, newBuildingPosition, Quaternion.identity);
             placedBuildings.Add(newBuildingPosition);
         }

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
@@ -7,10 +10,12 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
 
     private HashSet<string> items = new HashSet<string>();
+    private Dictionary<string, int> itemCounts = new Dictionary<string, int>(); 
 
     public Transform inventorySlotsParent;
     public Sprite keySprite;
     public Sprite potionSprite;
+    public Sprite noteSprite;
 
     private void Awake()
     {
@@ -30,15 +35,28 @@ public class Inventory : MonoBehaviour
         if (!items.Contains(itemName))
         {
             items.Add(itemName);
-            AddItemToUI(itemName);
+            itemCounts[itemName] = 1; 
         }
+        else
+        {
+            itemCounts[itemName]++; 
+        }
+
+        AddItemToUI(itemName);
     }
 
     public void RemoveItem(string itemName)
     {
         if (items.Contains(itemName))
         {
-            items.Remove(itemName);
+            itemCounts[itemName]--;
+
+            if (itemCounts[itemName] <= 0)
+            {
+                items.Remove(itemName);
+                itemCounts.Remove(itemName);
+            }
+
             RemoveItemFromUI(itemName);
         }
     }
@@ -48,7 +66,9 @@ public class Inventory : MonoBehaviour
         foreach (Transform slot in inventorySlotsParent)
         {
             Image slotImage = slot.GetComponentInChildren<Image>();
-            if (slotImage != null && slotImage.sprite == null) 
+            TextMeshProUGUI countText = slot.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (slotImage != null && slotImage.sprite == null)
             {
                 if (itemName == "TowerKey")
                 {
@@ -61,6 +81,31 @@ public class Inventory : MonoBehaviour
                     slotImage.sprite = potionSprite;
                     slotImage.enabled = true;
                     slotImage.color = Color.white;
+                }
+                else if (itemName == "2DNote")
+                {
+                    slotImage.sprite = noteSprite;
+                    slotImage.enabled = true;
+                    slotImage.color = Color.white;
+
+                    if (countText != null)
+                    {
+                        countText.text = itemCounts[itemName].ToString();
+                        countText.enabled = true;
+                    }
+                }
+                return;
+            }
+            else if (slotImage != null && slotImage.sprite == noteSprite && itemName == "2DNote")
+            {
+                if (countText != null)
+                {
+                    countText.text = itemCounts[itemName].ToString();
+                    countText.enabled = true;
+                    if(itemCounts[itemName] == 4)
+                    {
+                        SceneManager.LoadScene("MainScene");
+                    }
                 }
                 return;
             }
@@ -79,22 +124,48 @@ public class Inventory : MonoBehaviour
         {
             itemSprite = potionSprite;
         }
+        else if (itemName == "2DNote")
+        {
+            itemSprite = noteSprite;
+        }
 
         if (itemSprite == null) return;
 
         foreach (Transform slot in inventorySlotsParent)
         {
             Image slotImage = slot.GetComponentInChildren<Image>();
+            Text countText = slot.GetComponentInChildren<Text>();
+
             if (slotImage != null && slotImage.sprite == itemSprite)
             {
-                slotImage.sprite = null;
-                slotImage.enabled = false;
-                slotImage.color = Color.white;
+                if (itemName == "2DNote")
+                {
+                    if (itemCounts.ContainsKey(itemName))
+                    {
+                        countText.text = itemCounts[itemName].ToString();
+                        if (itemCounts[itemName] <= 0)
+                        {
+                            slotImage.sprite = null;
+                            slotImage.enabled = false;
+                            slotImage.color = Color.white;
+                            countText.enabled = false;
+                        }
+                    }
+                }
+                else
+                {
+                    slotImage.sprite = null;
+                    slotImage.enabled = false;
+                    slotImage.color = Color.white;
+                    if (countText != null)
+                    {
+                        countText.enabled = false;
+                    }
+                }
                 return;
             }
         }
     }
-
 
     public bool HasItem(string itemName)
     {
