@@ -114,13 +114,13 @@ public class Interaction : MonoBehaviour
             if (((1 << info.collider.gameObject.layer) & towerKeyLayer) != 0)
             {
                 playerInventory.AddItem("TowerKey");
-                SoundManager.PlaySound(SoundType.PICKUPKEY, 1f);
+                SoundManager.PlaySound(SoundType.PICKUPKEY, 0.9f);
                 Destroy(info.collider.gameObject);
             }
             else if (((1 << info.collider.gameObject.layer) & potionLayer) != 0)
             {
                 playerInventory.AddItem("Potion");
-                SoundManager.PlaySound(SoundType.PICKUPPOTION, 1f);
+                SoundManager.PlaySound(SoundType.PICKUPPOTION, 0.2f);
                 Destroy(info.collider.gameObject);
             }
             else if (((1 << info.collider.gameObject.layer) & doorLayer) != 0
@@ -132,7 +132,7 @@ public class Interaction : MonoBehaviour
                 {
                     if (door.doorType == DoorController.DoorType.Tower && !playerInventory.HasItem("TowerKey"))
                     {
-                        SoundManager.PlaySound(SoundType.LOCKEDDOOR, 0.6f);
+                        SoundManager.PlaySound(SoundType.LOCKEDDOOR, 0.3f);
                         doorAnimator.Play("LockedDoor", 0, 0f);
                     }
                     else if (door.doorType == DoorController.DoorType.Tower && playerInventory.HasItem("TowerKey"))

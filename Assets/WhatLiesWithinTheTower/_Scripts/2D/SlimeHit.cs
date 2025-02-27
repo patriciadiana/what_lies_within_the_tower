@@ -26,6 +26,7 @@ public class SlimeHit : MonoBehaviour
         if (hitPoints <= 0)
         {
             animator.SetTrigger("Death");
+            SoundManager.PlaySound(SoundType.SLIMEDEATH2D, 0.8f);
             rb.velocity = Vector2.zero;
         }
     }

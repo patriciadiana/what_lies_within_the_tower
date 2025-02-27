@@ -33,6 +33,7 @@ public class Health : MonoBehaviour
         {
             animator.SetTrigger("Death");
             rb.velocity = Vector2.zero;
+            SoundManager.PlaySound(SoundType.PLAYERDEATH2D, 0.8f);
             playerMovement.enabled = false;
 
             OnPlayerDeath?.Invoke();

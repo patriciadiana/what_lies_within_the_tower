@@ -9,9 +9,9 @@ public class ObstaclesHit : MonoBehaviour
 
     public Sprite brokenSprite;
     public Sprite moreBrokenSprite;
-    public GameObject note; // Assign in the Inspector
+    public GameObject note;
 
-    private bool noteSpawned = false; // Ensure note spawns only once
+    private bool noteSpawned = false;
 
     void Start()
     {
@@ -36,6 +36,7 @@ public class ObstaclesHit : MonoBehaviour
         {
             spriteRenderer.sprite = moreBrokenSprite;
             ShowNote();
+            SoundManager.PlaySound(SoundType.NOTEAPPEAR2D, 1f);
             noteSpawned = true;
         }
     }
@@ -45,7 +46,7 @@ public class ObstaclesHit : MonoBehaviour
         if (note != null)
         {
             note.SetActive(true);
-            note.transform.position = transform.position + new Vector3(0, 1, 0); // Adjust position if needed
+            note.transform.position = transform.position + new Vector3(0, 1, 0);
         }
         else
         {

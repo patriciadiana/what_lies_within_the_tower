@@ -29,9 +29,9 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     // Footstep variables
-    private float footstepCooldown = 0.5f; // Time between footstep sounds
-    private float footstepTimer;          // Timer to track cooldown
-    private bool isMoving;                // Whether the player is moving
+    private float footstepCooldown = 0.5f; 
+    private float footstepTimer;          
+    private bool isMoving;             
 
     private void Start()
     {

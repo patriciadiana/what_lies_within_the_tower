@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class SnapScript : MonoBehaviour
 {
-    public float snapOffset = 0.5f;
+    public float snapOffset;
     private Vector3 RightPosition;
     private Quaternion initialRotation;
 
-    // Set initially correct position and rotation
     void Start()
     {
         RightPosition = transform.position;

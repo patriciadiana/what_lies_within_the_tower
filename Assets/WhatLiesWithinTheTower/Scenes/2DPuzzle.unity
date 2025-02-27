@@ -9028,6 +9028,7 @@ GameObject:
   - component: {fileID: 935437856}
   - component: {fileID: 935437859}
   - component: {fileID: 935437858}
+  - component: {fileID: 935437860}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9276,6 +9277,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &935437860
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935437851}
+  m_Enabled: 1
 --- !u!1 &997726234
 GameObject:
   m_ObjectHideFlags: 0
@@ -10806,6 +10815,7 @@ MonoBehaviour:
   player: {fileID: 1749617756}
   speed: 1
   distanceOffset: 6
+  stepSoundInterval: 1
 --- !u!58 &1086479878
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12112,6 +12122,7 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 1536
+  footstepsDelay: 0.5
 --- !u!50 &1749617758
 Rigidbody2D:
   serializedVersion: 4

@@ -747,7 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &2587564419200062033
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &6149942652536809890
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &6207401605036600391
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1353,7 +1353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &6332900657240228825
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1430,7 +1430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &6696727974616226477
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &7680878698951675068
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &8137040767652114810
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &8198863597384506170
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &8798500143462436848
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1758,7 +1758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29489546df9a2794698ee0992c99536d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapOffset: 1
+  snapOffset: 1.5
 --- !u!64 &8987074480634637499
 MeshCollider:
   m_ObjectHideFlags: 0

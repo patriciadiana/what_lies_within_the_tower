@@ -6,7 +6,7 @@ public class SlimeSpawner : MonoBehaviour
 {
     public GameObject slime;
     public int minSlimesPerCoffin = 1;
-    public int maxSlimesPerCoffin = 3;
+    public int maxSlimesPerCoffin = 2;
     public float spawnRadius = 2f;
 
     void Start()

@@ -708,6 +708,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8465543138209669108, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8401258764314937481, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6677380476809986014, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -752,9 +764,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2398506513853696717, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
       propertyPath: m_Name
       value: padlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461934523945268101, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929546262726290899, guid: 8e28fcaf9a0c5f34fa9166812f114290, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
