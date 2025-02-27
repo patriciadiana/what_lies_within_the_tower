@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Note : MonoBehaviour
 {
     private bool playerNearby = false;
 
     private Inventory playerInventory;
+    private int collectedNotes = 0;
 
     private void Start()
     {
@@ -17,12 +19,18 @@ public class Note : MonoBehaviour
         {
             CollectNote();
         }
+        if(collectedNotes == 4)
+        {
+            GameManager.Instance.SetLevelComplete(4);
+            SceneManager.LoadScene("MainScene");
+        }
     }
 
     private void CollectNote()
     {
         playerInventory.AddItem("2DNote");
-        Debug.Log("Note collected!");
+        SoundManager.PlaySound(SoundType.PICKUP2D, 0.6f);
+        collectedNotes++;
         gameObject.SetActive(false);
     }
 

@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
 
     public static bool isPaused = false;
     public GameObject pauseMenu;
+    public GameObject optionsMenu;
 
     private void Awake()
     {
@@ -60,5 +61,13 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnPauseOptionsButtonClicked()
+    {
+        optionsMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+
+        OptionsMenu.Instance.SetLastMenu("PauseMenu");
     }
 }

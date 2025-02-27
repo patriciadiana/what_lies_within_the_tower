@@ -21,7 +21,7 @@ public class Rotate : MonoBehaviour
     {
         if (coroutineAllowed)
         {
-            SoundManager.PlaySound(SoundType.ROTATEPADLOCK, 1f);
+            SoundManager.PlaySound(SoundType.ROTATEPADLOCK, 0.5f);
             StartCoroutine("RotateWheel");
         }
     }

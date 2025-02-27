@@ -7,7 +7,7 @@ public class Grabber : MonoBehaviour
     private Vector3 offset;
 
     private static int placedPiecesCount = 0;
-    private static int totalPieces = 1;
+    private static int totalPieces = 10;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class Grabber : MonoBehaviour
                 RaycastHit hit = CastRay();
                 if (hit.collider != null && hit.collider.CompareTag("drag"))
                 {
-                    SoundManager.PlaySound(SoundType.GRABPIECE, 1f);
+                    SoundManager.PlaySound(SoundType.GRABPIECE, 0.9f);
                     selectedObject = hit.collider.gameObject;
 
                     Vector3 objectScreenPos = Camera.main.WorldToScreenPoint(selectedObject.transform.position);
@@ -38,6 +38,7 @@ public class Grabber : MonoBehaviour
             {
                 if (selectedObject.GetComponent<SnapScript>().IsPiecePlaced())
                 {
+                    SoundManager.PlaySound(SoundType.SNAPPIECE, 1f);
                     placedPiecesCount++;
                     CheckPuzzleCompletion();
                 }
@@ -55,6 +56,7 @@ public class Grabber : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1))
             {
+                SoundManager.PlaySound(SoundType.GRABPIECE, 0.9f);
                 selectedObject.transform.rotation = Quaternion.Euler(new Vector3(
                     selectedObject.transform.rotation.eulerAngles.x,
                     selectedObject.transform.rotation.eulerAngles.y + 90,

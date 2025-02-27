@@ -13,6 +13,9 @@ public class PlayerMovement2D : MonoBehaviour
     private Animator animator;
     public LayerMask attackLayerMask;
 
+    private bool isMoving;
+    public float footstepsDelay = 0.5f;
+
     void Start()
     {
         velocity = new Vector2(speed, speed);
@@ -26,6 +29,11 @@ public class PlayerMovement2D : MonoBehaviour
         inputMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         animator.SetFloat("xVelocity", inputMovement.magnitude);
 
+        if (inputMovement.magnitude > 0 && !isMoving)
+        {
+            StartCoroutine(PlayFootsteps());
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
@@ -33,8 +41,20 @@ public class PlayerMovement2D : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayFootsteps()
+    {
+        isMoving = true;
+        while (inputMovement.magnitude > 0) 
+        {
+            SoundManager.PlaySound(SoundType.FOOTSTEPS2D, 0.2f);
+            yield return new WaitForSeconds(footstepsDelay);
+        }
+        isMoving = false;
+    }
+
     private void PerformAttack()
     {
+        SoundManager.PlaySound(SoundType.ATTACK2D, 0.5f);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f, attackLayerMask);
         if (hit.collider != null)
         {

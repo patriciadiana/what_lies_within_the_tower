@@ -55,6 +55,7 @@ public class AttackPlayer : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.TakeDamange(attackDamage);
+            SoundManager.PlaySound(SoundType.TAKEDAMAGE2D, 0.5f);
             lastAttackTime = Time.time;
         }
     }
