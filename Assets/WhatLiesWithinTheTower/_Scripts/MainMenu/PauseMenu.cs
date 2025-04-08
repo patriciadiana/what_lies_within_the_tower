@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance;
+    public GameObject player;
 
     public static bool isPaused = false;
     public GameObject pauseMenu;
-    public GameObject optionsMenu;
+    //public GameObject optionsMenu;
 
     private void Awake()
     {
@@ -60,14 +61,17 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+        isPaused = false;
+        GameManager.Instance.SetPlayerPosition(player.transform.position);
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void OnPauseOptionsButtonClicked()
-    {
-        optionsMenu.SetActive(true);
-        pauseMenu.SetActive(false);
+    //public void OnPauseOptionsButtonClicked()
+    //{
+    //    optionsMenu.SetActive(true);
+    //    pauseMenu.SetActive(false);
 
-        OptionsMenu.Instance.SetLastMenu("PauseMenu");
-    }
+    //    OptionsMenu.Instance.SetLastMenu("PauseMenu");
+    //}
 }
