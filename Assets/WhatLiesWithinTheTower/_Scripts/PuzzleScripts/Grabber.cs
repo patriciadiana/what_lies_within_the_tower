@@ -11,6 +11,7 @@ public class Grabber : MonoBehaviour
 
     private void Start()
     {
+        placedPiecesCount = 0;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -45,6 +46,10 @@ public class Grabber : MonoBehaviour
                 selectedObject = null;
                 Cursor.visible = true;
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene("MainScene");
         }
 
         if (selectedObject != null)

@@ -5,19 +5,24 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
+    public float sprintSpeed;
 
     public float groundDrag;
+    public float stairDrag;
 
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     public float playerHeight;
     public LayerMask whatIsGround;
+
     bool grounded;
     bool onStairs;
+    bool isSprinting;
 
     public Transform orientation;
 
@@ -28,10 +33,9 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    // Footstep variables
-    private float footstepCooldown = 0.5f; 
-    private float footstepTimer;          
-    private bool isMoving;             
+    private float footstepCooldown = 0.5f;
+    private float footstepTimer;
+    private bool isMoving;
 
     private void Start()
     {
@@ -47,7 +51,11 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
 
-        if (grounded)
+        if (onStairs)
+        {
+            rb.drag = stairDrag;
+        }
+        else if (grounded)
         {
             rb.drag = groundDrag;
         }
@@ -69,12 +77,12 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        isSprinting = Input.GetKey(sprintKey) && (verticalInput > 0) && !onStairs;
+
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-
             Jump();
-
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
@@ -82,31 +90,35 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
         isMoving = (horizontalInput != 0 || verticalInput != 0) && (grounded || onStairs);
 
-        if (grounded || onStairs)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
 
-            if (onStairs)
-            {
-                rb.AddForce(Vector3.up * 5f, ForceMode.Force);
-            }
+        if (onStairs)
+        {
+            Vector3 stairVelocity = moveDirection.normalized * currentSpeed * 0.8f;
+            rb.velocity = new Vector3(stairVelocity.x, rb.velocity.y, stairVelocity.z);
+        }
+        else if (grounded)
+        {
+            rb.AddForce(moveDirection.normalized * currentSpeed * 10f, ForceMode.Force);
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * currentSpeed * 10f * airMultiplier, ForceMode.Force);
         }
     }
 
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        float maxSpeed = isSprinting ? sprintSpeed : moveSpeed;
 
-        if (flatVel.magnitude > moveSpeed)
+        if (onStairs) maxSpeed *= 0.7f;
+
+        if (flatVel.magnitude > maxSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * maxSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
@@ -114,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -126,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleFootsteps()
     {
         footstepTimer -= Time.deltaTime;
-
         if (isMoving && footstepTimer <= 0f)
         {
             SoundManager.PlaySound(SoundType.FOOTSTEPS, 0.1f);
@@ -138,7 +148,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("stairs"))
         {
-            onStairs = true;
+            float dot = Vector3.Dot(moveDirection.normalized, collision.transform.forward);
+            onStairs = Mathf.Abs(dot) > 0.3f && (horizontalInput != 0 || verticalInput != 0);
         }
         else
         {
