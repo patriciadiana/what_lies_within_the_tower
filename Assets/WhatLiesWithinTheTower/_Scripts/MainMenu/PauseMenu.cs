@@ -10,7 +10,6 @@ public class PauseMenu : MonoBehaviour
 
     public static bool isPaused = false;
     public GameObject pauseMenu;
-    //public GameObject optionsMenu;
 
     private void Awake()
     {
@@ -67,11 +66,26 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    //public void OnPauseOptionsButtonClicked()
-    //{
-    //    optionsMenu.SetActive(true);
-    //    pauseMenu.SetActive(false);
+    public void SaveGame()
+    {
+        SaveSystem.SavePlayer(player);
+        Debug.Log("Game Saved");
+        Resume(); 
+    }
 
-    //    OptionsMenu.Instance.SetLastMenu("PauseMenu");
-    //}
+    public void LoadGame()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        if (data != null)
+        {
+            player.transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
+            Inventory.Instance.LoadInventory(data.inventoryData);
+            Debug.Log("Game Loaded");
+            Resume();
+        }
+        else
+        {
+            Debug.LogError("No saved game found.");
+        }
+    }
 }

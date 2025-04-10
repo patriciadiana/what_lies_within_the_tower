@@ -8,6 +8,7 @@ TagManager:
   - coffin
   - ladder
   - Player2D
+  - ObjectiveUI
   layers:
   - Default
   - TransparentFX
