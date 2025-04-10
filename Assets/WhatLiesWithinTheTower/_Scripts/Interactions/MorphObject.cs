@@ -13,6 +13,7 @@ public class MorphObject : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        morphCamera.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -26,7 +27,7 @@ public class MorphObject : MonoBehaviour
     {
         if (!isMorphed)
         {
-            player.transform.position = morphObject.transform.position;
+            morphObject.transform.position = player.transform.position;
 
             morphObject.SetActive(true);
             morphCamera.gameObject.SetActive(true);

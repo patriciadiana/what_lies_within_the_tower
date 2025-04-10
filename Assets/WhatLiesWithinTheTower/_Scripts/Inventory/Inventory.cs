@@ -166,9 +166,38 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    public List<string> GetItems()
+    {
+        return new List<string>(items);
+    }
+
+    public Dictionary<string, int> GetItemCounts()
+    {
+        return new Dictionary<string, int>(itemCounts);
+    }
 
     public bool HasItem(string itemName)
     {
         return items.Contains(itemName);
+    }
+
+    public void LoadInventory(InventoryData inventoryData)
+    {
+        items.Clear();
+        itemCounts.Clear();
+
+        foreach (var itemName in inventoryData.itemNames)
+        {
+            if (!items.Contains(itemName))
+            {
+                AddItemToUI(itemName);
+                items.Add(itemName);
+            }
+        }
+
+        foreach (var itemCount in inventoryData.itemCounts)
+        {
+            itemCounts[itemCount.Key] = itemCount.Value;
+        }
     }
 }
