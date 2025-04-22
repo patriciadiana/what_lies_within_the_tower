@@ -10,7 +10,23 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsMenu;
     public void PlayGame()
     {
-        SceneManager.LoadScene("MainScene");
+        if (GameManager.Instance != null)
+        {
+            string savedScene = GameManager.Instance.GetSceneName();
+
+            if (!string.IsNullOrEmpty(savedScene) && savedScene != "MainScene")
+            {
+                GameManager.Instance.LoadSavedScene();
+            }
+            else
+            {
+                SceneManager.LoadScene("MainScene");
+            }
+        }
+        else
+        {
+            SceneManager.LoadScene("MainScene");
+        }
     }
 
     public void QuitGame()

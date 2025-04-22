@@ -22,6 +22,7 @@ public class Note : MonoBehaviour
         if(collectedNotes == 4)
         {
             GameManager.Instance.SetLevelComplete(4);
+            Inventory.Instance.ResetInventory();
             SceneManager.LoadScene("MainScene");
         }
     }

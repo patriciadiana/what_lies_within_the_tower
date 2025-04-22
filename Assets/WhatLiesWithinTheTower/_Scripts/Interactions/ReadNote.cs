@@ -31,12 +31,24 @@ public class ReadNote : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
+
+        if (objectiveUI == null)
+        {
+            objectiveUI = GameObject.FindGameObjectWithTag("ObjectiveUI");
+            if (objectiveUI != null)
+                objectiveAnimator = objectiveUI.GetComponent<Animator>();
+        }
+
         if (isNoteActive && Input.GetKeyDown(KeyCode.Q))
         {
             CloseNote();
-            ObjectiveManager.Instance.MarkObjectiveAsFinished();
+            if (ObjectiveManager.Instance != null)
+                ObjectiveManager.Instance.MarkObjectiveAsFinished();
         }
     }
+
 
     private void CloseNote()
     {

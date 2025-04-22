@@ -4,6 +4,7 @@ public class MorphObject : MonoBehaviour
 {
     public GameObject player;
     public GameObject morphObject;
+    public GameObject decoyBook;
 
     public Camera playerCamera;
     public Camera morphCamera;
@@ -12,6 +13,8 @@ public class MorphObject : MonoBehaviour
 
     private void Start()
     {
+        decoyBook.SetActive(true);
+
         player = GameObject.FindGameObjectWithTag("Player");
         morphCamera.gameObject.SetActive(false);
     }
@@ -20,6 +23,7 @@ public class MorphObject : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
+            decoyBook.SetActive(false);
             SwapForm();
         }
     }

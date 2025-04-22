@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum SoundType
@@ -26,6 +27,11 @@ public enum SoundType
     PLAYERDEATH2D
 }
 
+public enum MusicType
+{
+    BACKGROUNDMUSIC
+}
+
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
@@ -37,6 +43,10 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioClip[] soundList;
     [SerializeField] private AudioClip[] musicList;
+    private void Start()
+    {
+        PlayMusic(MusicType.BACKGROUNDMUSIC, 0.2f);
+    }
 
     private void Awake()
     {
@@ -52,7 +62,7 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    public static void PlaySound(SoundType sound, float volume = 1f)
+    public static void PlaySound(SoundType sound, float volume)
     {
         if (Instance.soundList.Length > (int)sound)
         {
@@ -64,17 +74,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public static void PlayMusic(int musicIndex, float volume = 1)
+    public static void PlayMusic(MusicType music, float volume)
     {
-        if (Instance.musicList.Length > musicIndex)
+        if (Instance.musicList.Length > (int)music)
         {
-            Instance.musicSource.clip = Instance.musicList[musicIndex];
+            Instance.musicSource.clip = Instance.musicList[(int)music];
             Instance.musicSource.volume = volume;
+            Instance.musicSource.loop = true;
             Instance.musicSource.Play();
         }
         else
         {
-            Debug.LogWarning("Music clip not found for index: " + musicIndex);
+            Debug.LogWarning("Music clip not found for index: " + music);
         }
     }
 }

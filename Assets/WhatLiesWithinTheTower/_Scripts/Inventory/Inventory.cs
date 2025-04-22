@@ -200,4 +200,29 @@ public class Inventory : MonoBehaviour
             itemCounts[itemCount.Key] = itemCount.Value;
         }
     }
+
+    public void ResetInventory()
+    {
+        items.Clear();
+        itemCounts.Clear();
+
+        foreach (Transform slot in inventorySlotsParent)
+        {
+            Image slotImage = slot.GetComponentInChildren<Image>();
+            TextMeshProUGUI countText = slot.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (slotImage != null)
+            {
+                slotImage.sprite = null;
+                slotImage.enabled = false;
+            }
+
+            if (countText != null)
+            {
+                countText.text = "";
+                countText.enabled = false;
+            }
+        }
+    }
+
 }
