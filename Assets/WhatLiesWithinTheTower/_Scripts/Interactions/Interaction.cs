@@ -86,7 +86,7 @@ public class Interaction : MonoBehaviour
             }
             else if (((1 << info.collider.gameObject.layer) & morphLayer) != 0)
             {
-                morphText.SetActive(true);
+                puzzleText.SetActive(true);
             }
             else if (((1 << info.collider.gameObject.layer) & bookLayer) != 0)
             {
@@ -94,11 +94,18 @@ public class Interaction : MonoBehaviour
             }
             else if (((1 << info.collider.gameObject.layer) & slimeLayer) != 0)
             {
-                morphText.SetActive(true);
+                puzzleText.SetActive(true);
             }
             else if (((1 << info.collider.gameObject.layer) & padlockLayer) != 0)
             {
-                morphText.SetActive(true);
+                if (playerInventory.HasItem("Potion"))
+                {
+                    puzzleText.SetActive(false);
+                }
+                else
+                {
+                    puzzleText.SetActive(true);
+                }
             }
         }
     }
@@ -172,7 +179,13 @@ public class Interaction : MonoBehaviour
             }
             else if (((1 << info.collider.gameObject.layer) & bookLayer) != 0)
             {
-                /*TBD*/
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    if (playerInventory.HasItem("Potion"))
+                    {
+                        playerInventory.RemoveItem("Potion");
+                    }
+                }
             }
             else if (((1 << info.collider.gameObject.layer) & slimeLayer) != 0)
             {
@@ -202,15 +215,6 @@ public class Interaction : MonoBehaviour
         {
             InteractionWithObject();
         }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (playerInventory.HasItem("Potion"))
-            {
-                playerInventory.RemoveItem("Potion");
-            }
-        }
-
         setTextActive();
     }
 }

@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class Start2DPuzzle : MonoBehaviour
 {
     public GameObject player;
-
-    private void Start()
+    private void Awake()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Interact()
     {
+        GameManager.Instance.SetSceneName(SceneManager.GetActiveScene().name);
         GameManager.Instance.SetPlayerPosition(player.transform.position);
         SceneManager.LoadScene("2DPuzzle");
     }

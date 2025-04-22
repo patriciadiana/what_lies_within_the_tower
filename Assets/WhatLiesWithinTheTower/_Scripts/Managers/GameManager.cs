@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
     [SerializeField]
+    public static GameManager Instance;
+    private string lastSceneName;
     private GameObject player;
 
     private Vector3 playerPosition;
@@ -75,6 +76,16 @@ public class GameManager : MonoBehaviour
         return playerPosition;
     }
 
+    public void SetSceneName(string sceneName)
+    {
+        lastSceneName = sceneName;
+    }
+
+    public string GetSceneName()
+    {
+        return lastSceneName; 
+    }
+
     public void ActivateUnlockedHatches()
     {
         if (activateLevel1 && hatchLevel1 != null)
@@ -117,4 +128,17 @@ public class GameManager : MonoBehaviour
     {
         return isLockOpened;
     }
+
+    public void LoadSavedScene()
+    {
+        if (!string.IsNullOrEmpty(lastSceneName))
+        {
+            SceneManager.LoadScene(lastSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("No scene name saved!");
+        }
+    }
+
 }

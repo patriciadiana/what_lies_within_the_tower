@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     public static event Action OnPlayerDeath;
 
     private PlayerMovement2D playerMovement;
+    public GameOverScreen gameOverScreen;
 
     private void Awake()
     {
@@ -19,6 +20,10 @@ public class Health : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement2D>();
+    }
+    private void Start()
+    {
+        ResetHealth();
     }
 
     public void TakeDamange(float damage)
@@ -37,6 +42,14 @@ public class Health : MonoBehaviour
             playerMovement.enabled = false;
 
             OnPlayerDeath?.Invoke();
+            gameOverScreen.Setup();
         }
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = startingHealth;
+        playerMovement.enabled = true;
+        animator.ResetTrigger("Death");
     }
 }

@@ -22,7 +22,6 @@ public class PlayerMovement2D : MonoBehaviour
         characterBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-
     
     void Update()
     {

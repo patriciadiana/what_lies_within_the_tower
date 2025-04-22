@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         if (Instance == null)
         {
             Instance = this;
@@ -62,6 +63,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         isPaused = false;
+        GameManager.Instance.SetSceneName(SceneManager.GetActiveScene().name);
         GameManager.Instance.SetPlayerPosition(player.transform.position);
         SceneManager.LoadScene("MainMenu");
     }
