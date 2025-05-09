@@ -47,10 +47,14 @@ public class Objective : MonoBehaviour
     private void ShowObjective()
     {
         if (objectiveText != null)
+        {
             objectiveText.text = message;
+        }
 
         if (objectiveAnimator != null)
+        {
             objectiveAnimator.Play("ObjectiveDisplay");
+        }
 
         ObjectiveManager.Instance.ResetObjectiveFlag();
 
