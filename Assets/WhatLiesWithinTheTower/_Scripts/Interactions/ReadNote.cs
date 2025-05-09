@@ -10,6 +10,8 @@ public class ReadNote : MonoBehaviour
     public GameObject objectiveUI;
     private Animator objectiveAnimator;
 
+    private bool padlockCodeNote;
+
     private bool isNoteActive = false;
 
     void Start()
@@ -27,6 +29,11 @@ public class ReadNote : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = false;
         objectiveAnimator.Play("ObjectiveHide");
         isNoteActive = true;
+
+        if (note.CompareTag("PadlockCode"))
+            padlockCodeNote = true;
+        else
+            padlockCodeNote = false;
     }
 
     void Update()
@@ -44,7 +51,7 @@ public class ReadNote : MonoBehaviour
         if (isNoteActive && Input.GetKeyDown(KeyCode.Q))
         {
             CloseNote();
-            if (ObjectiveManager.Instance != null)
+            if ((ObjectiveManager.Instance != null) && (padlockCodeNote == false))
                 ObjectiveManager.Instance.MarkObjectiveAsFinished();
         }
     }

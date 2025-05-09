@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems; // Required for EventSystem
 
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance;
     public GameObject player;
+    public GameObject controlsImage;
 
     public static bool isPaused = false;
     public GameObject pauseMenu;
@@ -29,6 +31,12 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (controlsImage.activeSelf)
+            {
+                HideControls();
+                return;
+            }
+
             if (isPaused)
             {
                 Resume();
@@ -47,6 +55,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        DeselectButton(); // Deselect UI button when resuming
     }
 
     public void Pause()
@@ -72,7 +81,7 @@ public class PauseMenu : MonoBehaviour
     {
         SaveSystem.SavePlayer(player);
         Debug.Log("Game Saved");
-        Resume(); 
+        Resume();
     }
 
     public void LoadGame()
@@ -88,6 +97,31 @@ public class PauseMenu : MonoBehaviour
         else
         {
             Debug.LogError("No saved game found.");
+        }
+    }
+
+    public void ShowControls()
+    {
+        controlsImage.SetActive(true);
+        pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
+        DeselectButton(); 
+    }
+
+    public void HideControls()
+    {
+        controlsImage.SetActive(false);
+        pauseMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void DeselectButton()
+    {
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }

@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Interaction : MonoBehaviour
 {
@@ -211,7 +205,7 @@ public class Interaction : MonoBehaviour
         rayOrigin = mainCamera.transform.position;
         rayDirection = mainCamera.transform.forward;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.M))
         {
             InteractionWithObject();
         }
