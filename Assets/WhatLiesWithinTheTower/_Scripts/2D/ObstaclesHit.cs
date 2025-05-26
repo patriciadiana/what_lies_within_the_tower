@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstaclesHit : MonoBehaviour
@@ -9,18 +7,13 @@ public class ObstaclesHit : MonoBehaviour
 
     public Sprite brokenSprite;
     public Sprite moreBrokenSprite;
-    public GameObject note;
+    public GameObject notePrefab;
 
     private bool noteSpawned = false;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (note != null)
-        {
-            note.SetActive(false);
-        }
     }
 
     public void Hit()
@@ -43,14 +36,13 @@ public class ObstaclesHit : MonoBehaviour
 
     void ShowNote()
     {
-        if (note != null)
+        if (notePrefab != null)
         {
-            note.SetActive(true);
-            note.transform.position = transform.position + new Vector3(0, 1, 0);
+            GameObject spawnedNote = Instantiate(notePrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         }
         else
         {
-            Debug.LogWarning("Note object is not assigned!");
+            Debug.LogWarning("Note prefab is not assigned!");
         }
     }
 }

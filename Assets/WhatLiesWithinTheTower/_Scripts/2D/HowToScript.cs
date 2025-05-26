@@ -5,7 +5,7 @@ using UnityEngine;
 public class HowToScript : MonoBehaviour
 {
     public GameObject howToPanel;
-    public float closeTime = 10f;
+    public float closeTime = 15f;
 
     private void Start()
     {

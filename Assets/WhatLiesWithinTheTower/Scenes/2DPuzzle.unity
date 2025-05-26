@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   howToPanel: {fileID: 226393293}
-  closeTime: 10
+  closeTime: 15
 --- !u!4 &438001346
 Transform:
   m_ObjectHideFlags: 0
@@ -8975,7 +8975,7 @@ MonoBehaviour:
   hitPoints: 10
   brokenSprite: {fileID: 1415662006, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
   moreBrokenSprite: {fileID: 25678576, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
-  note: {fileID: 1813149672}
+  notePrefab: {fileID: 2929393742973932128, guid: f88e3b8e686cae047a60a64531567eb2, type: 3}
 --- !u!61 &666036995
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9836,7 +9836,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -11800,7 +11800,7 @@ MonoBehaviour:
   hitPoints: 10
   brokenSprite: {fileID: 1415662006, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
   moreBrokenSprite: {fileID: 25678576, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
-  note: {fileID: 1813149672}
+  notePrefab: {fileID: 2929393742973932128, guid: f88e3b8e686cae047a60a64531567eb2, type: 3}
 --- !u!61 &1115267383
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11927,7 +11927,7 @@ MonoBehaviour:
   hitPoints: 10
   brokenSprite: {fileID: 1415662006, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
   moreBrokenSprite: {fileID: 25678576, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
-  note: {fileID: 1813149672}
+  notePrefab: {fileID: 2929393742973932128, guid: f88e3b8e686cae047a60a64531567eb2, type: 3}
 --- !u!61 &1164428527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12406,7 +12406,7 @@ MonoBehaviour:
   hitPoints: 10
   brokenSprite: {fileID: 1415662006, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
   moreBrokenSprite: {fileID: 25678576, guid: 8bc783aa6b445d340bc03dbac23cf478, type: 3}
-  note: {fileID: 1813149672}
+  notePrefab: {fileID: 2929393742973932128, guid: f88e3b8e686cae047a60a64531567eb2, type: 3}
 --- !u!61 &1419454337
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13196,6 +13196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  sprintMultiplier: 1.5
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 1536
@@ -13364,11 +13365,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5
   gameOverScreen: {fileID: 1732902142}
---- !u!1 &1813149672 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2929393742973932128, guid: f88e3b8e686cae047a60a64531567eb2, type: 3}
-  m_PrefabInstance: {fileID: 9145537631385727673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1916861863
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,12 +7,12 @@ public class Ladder : MonoBehaviour
     public float climbSpeed = 5f;
     public KeyCode climbKey = KeyCode.W;
     public KeyCode descendKey = KeyCode.S;
-    public float soundCooldown = 0.2f; // Time to wait before playing the sound again
+    public float soundCooldown = 0.2f;
 
     private Rigidbody rb;
     private bool isClimbing = false;
     private Collider ladderCollider;
-    private float lastSoundTime = 0f; // Keeps track of the last time the sound played
+    private float lastSoundTime = 0f;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class Ladder : MonoBehaviour
         {
             isClimbing = true;
             ladderCollider = other;
-            rb.useGravity = false; // Disable gravity while climbing
+            rb.useGravity = false;
         }
     }
 
@@ -55,22 +55,20 @@ public class Ladder : MonoBehaviour
         if (Input.GetKey(climbKey))
         {
             verticalInput = 1f;
-            shouldPlaySound = true; // Climbing up
+            shouldPlaySound = true;
         }
         else if (Input.GetKey(descendKey))
         {
             verticalInput = -1f;
-            shouldPlaySound = true; // Climbing down
+            shouldPlaySound = true;
         }
 
-        // Play sound if the cooldown has passed and there's a valid direction
         if (shouldPlaySound && Time.time - lastSoundTime >= soundCooldown)
         {
             SoundManager.PlaySound(SoundType.LADDER, 1f);
-            lastSoundTime = Time.time; // Update the last sound play time
+            lastSoundTime = Time.time; 
         }
 
-        // Update climb velocity
         Vector3 climbVelocity = new Vector3(0, verticalInput * climbSpeed, 0);
         rb.velocity = climbVelocity;
 

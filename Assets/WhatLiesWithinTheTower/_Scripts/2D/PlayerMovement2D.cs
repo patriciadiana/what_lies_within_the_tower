@@ -10,6 +10,9 @@ public class PlayerMovement2D : MonoBehaviour
     private Vector2 velocity;
     private Vector2 inputMovement;
 
+    public float sprintMultiplier = 1.5f;
+    private bool isSprinting = false;
+
     private Animator animator;
     public LayerMask attackLayerMask;
 
@@ -22,11 +25,13 @@ public class PlayerMovement2D : MonoBehaviour
         characterBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    
+
     void Update()
     {
         inputMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         animator.SetFloat("xVelocity", inputMovement.magnitude);
+
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
 
         if (inputMovement.magnitude > 0 && !isMoving)
         {
@@ -39,6 +44,7 @@ public class PlayerMovement2D : MonoBehaviour
             PerformAttack();
         }
     }
+
 
     private IEnumerator PlayFootsteps()
     {
@@ -82,8 +88,10 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 delta = inputMovement * velocity * Time.deltaTime;
+        float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
+        Vector2 delta = inputMovement * currentSpeed * Time.deltaTime;
         Vector2 newPosition = characterBody.position + delta;
         characterBody.MovePosition(newPosition);
     }
+
 }

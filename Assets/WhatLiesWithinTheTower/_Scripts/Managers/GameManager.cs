@@ -94,16 +94,19 @@ public class GameManager : MonoBehaviour
         }
         if (activateLevel2 && hatchLevel2 != null)
         {
+            SoundManager.PlaySound(SoundType.UNLOCKHATCH, 0.3f);
             hatchLevel2.SetActive(false);
         }
         if (activateLevel3 && hatchLevel3 != null)
         {
             hatchLevel2.SetActive(true);
+            SoundManager.PlaySound(SoundType.UNLOCKHATCH, 0.3f);
             hatchLevel3.SetActive(false);
         }
         if (activateLevel4 && hatchLevel4 != null)
         {
             hatchLevel3.SetActive(true);
+            SoundManager.PlaySound(SoundType.UNLOCKHATCH, 0.3f);
             hatchLevel4.SetActive(false);
         }
     }
