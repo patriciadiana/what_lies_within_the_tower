@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems; // Required for EventSystem
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -29,6 +29,10 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
+        if(player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (controlsImage.activeSelf)
@@ -55,7 +59,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        DeselectButton(); // Deselect UI button when resuming
+        DeselectButton();
     }
 
     public void Pause()
@@ -91,6 +95,7 @@ public class PauseMenu : MonoBehaviour
         {
             player.transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
             Inventory.Instance.LoadInventory(data.inventoryData);
+            Timer.Instance.currentTime = data.currentTime;
             Debug.Log("Game Loaded");
             Resume();
         }

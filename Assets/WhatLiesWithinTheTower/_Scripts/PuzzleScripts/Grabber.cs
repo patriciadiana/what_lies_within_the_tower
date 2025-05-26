@@ -5,6 +5,7 @@ public class Grabber : MonoBehaviour
 {
     private GameObject selectedObject;
     private Vector3 offset;
+    private bool isDragging = false;
 
     private static int placedPiecesCount = 0;
     private static int totalPieces = 10;
@@ -20,18 +21,21 @@ public class Grabber : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (selectedObject == null)
+            if (!isDragging)
             {
                 RaycastHit hit = CastRay();
                 if (hit.collider != null && hit.collider.CompareTag("drag"))
                 {
                     SoundManager.PlaySound(SoundType.GRABPIECE, 0.9f);
                     selectedObject = hit.collider.gameObject;
+                    isDragging = true;
 
-                    Vector3 objectScreenPos = Camera.main.WorldToScreenPoint(selectedObject.transform.position);
-                    offset = selectedObject.transform.position - Camera.main.ScreenToWorldPoint(
-                        new Vector3(Input.mousePosition.x, Input.mousePosition.y, objectScreenPos.z));
+                    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(
+                        new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+                        Camera.main.WorldToScreenPoint(selectedObject.transform.position).z));
+                    offset = selectedObject.transform.position - mouseWorldPos;
 
+                    Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = false;
                 }
             }
@@ -43,8 +47,7 @@ public class Grabber : MonoBehaviour
                     placedPiecesCount++;
                     CheckPuzzleCompletion();
                 }
-                selectedObject = null;
-                Cursor.visible = true;
+                ReleaseObject();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Q))
@@ -52,38 +55,36 @@ public class Grabber : MonoBehaviour
             SceneManager.LoadScene("MainScene");
         }
 
-        if (selectedObject != null)
+        if (isDragging && selectedObject != null)
         {
-            Vector3 objectScreenPos = Camera.main.WorldToScreenPoint(selectedObject.transform.position);
-            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(
-                new Vector3(Input.mousePosition.x, Input.mousePosition.y, objectScreenPos.z));
-            selectedObject.transform.position = mouseWorldPosition + offset;
+            Vector3 mouseScreenPos = new Vector3(
+                Input.mousePosition.x,
+                Input.mousePosition.y,
+                Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
+
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+            selectedObject.transform.position = mouseWorldPos + offset;
 
             if (Input.GetMouseButtonDown(1))
             {
                 SoundManager.PlaySound(SoundType.GRABPIECE, 0.9f);
-                selectedObject.transform.rotation = Quaternion.Euler(new Vector3(
-                    selectedObject.transform.rotation.eulerAngles.x,
-                    selectedObject.transform.rotation.eulerAngles.y + 90,
-                    selectedObject.transform.rotation.eulerAngles.z));
+                selectedObject.transform.Rotate(0, 90, 0, Space.World);
             }
         }
     }
 
+    private void ReleaseObject()
+    {
+        isDragging = false;
+        selectedObject = null;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private RaycastHit CastRay()
     {
-        Vector3 screenMousePosFar = new Vector3(
-            Input.mousePosition.x,
-            Input.mousePosition.y,
-            Camera.main.farClipPlane);
-        Vector3 screenMousePosNear = new Vector3(
-            Input.mousePosition.x,
-            Input.mousePosition.y,
-            Camera.main.nearClipPlane);
-        Vector3 worldMousePosFar = Camera.main.ScreenToWorldPoint(screenMousePosFar);
-        Vector3 worldMousePosNear = Camera.main.ScreenToWorldPoint(screenMousePosNear);
-
-        Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out RaycastHit hit);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit hit);
         return hit;
     }
 
@@ -95,6 +96,14 @@ public class Grabber : MonoBehaviour
             GameManager.Instance.SetLevelComplete(2);
             SceneManager.LoadScene("MainScene");
             placedPiecesCount = 0;
+        }
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus && isDragging)
+        {
+            ReleaseObject();
         }
     }
 }

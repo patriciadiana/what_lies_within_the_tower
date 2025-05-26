@@ -25,6 +25,7 @@ public class SolvePadlock : MonoBehaviour
            door.Play("MorphDoorOpen");
            SoundManager.PlaySound(SoundType.OPENDOOR, 1f);
            doorOpened = true;
+           Destroy(gameObject);
         }
     }
 }

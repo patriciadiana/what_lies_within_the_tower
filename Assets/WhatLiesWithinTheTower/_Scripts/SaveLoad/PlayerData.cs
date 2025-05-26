@@ -9,6 +9,8 @@ public class PlayerData
 
     public InventoryData inventoryData;
 
+    public float currentTime;
+
     public PlayerData(GameObject player)
     {
         position = new float[3];
@@ -18,5 +20,7 @@ public class PlayerData
         position[2] = player.transform.position.z;
 
         inventoryData = new InventoryData(Inventory.Instance);
+
+        currentTime = Timer.Instance.currentTime;
     }
 }
