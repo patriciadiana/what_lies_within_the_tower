@@ -103,6 +103,7 @@ public class Inventory : MonoBehaviour
                     countText.enabled = true;
                     if(itemCounts[itemName] == 4)
                     {
+                        Timer.Instance.SaveCurrentLevelTime();
                         GameManager.Instance.SetLevelComplete(4);
                         Inventory.Instance.ResetInventory();
                         SceneManager.LoadScene("MainScene");

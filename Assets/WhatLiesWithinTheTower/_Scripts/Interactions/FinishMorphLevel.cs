@@ -13,6 +13,7 @@ public class FinishMorphLevel : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Timer.Instance.SaveCurrentLevelTime();
         GameManager.Instance.SetLevelComplete(3);
         SceneManager.LoadScene("MainScene");
     }

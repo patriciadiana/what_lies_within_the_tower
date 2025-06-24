@@ -45,7 +45,6 @@ public class PlayerMovement2D : MonoBehaviour
         }
     }
 
-
     private IEnumerator PlayFootsteps()
     {
         isMoving = true;

@@ -35,7 +35,7 @@ public class OutroScreen : MonoBehaviour
 
         if (Timer.Instance != null)
         {
-            SaveTimerToCSV(Timer.Instance.currentTime);
+            Timer.Instance.SaveCurrentLevelTime();
         }
 
         hasPlayed = false;
@@ -73,34 +73,4 @@ public class OutroScreen : MonoBehaviour
 
         image.gameObject.SetActive(false);
     }
-
-    void SaveTimerToCSV(float timeInSeconds)
-    {
-        string folderPath = Path.Combine(Application.persistentDataPath, "CSV");
-        string filePath = Path.Combine(folderPath, "TimerLog.csv");
-
-        if (!Directory.Exists(folderPath))
-        {
-            Directory.CreateDirectory(folderPath);
-        }
-
-        bool fileExists = File.Exists(filePath);
-
-        using (StreamWriter writer = new StreamWriter(filePath, true))
-        {
-            if (!fileExists)
-            {
-                writer.WriteLine("Time (MM:SS),Time (Seconds)");
-            }
-
-            int minutes = Mathf.FloorToInt(timeInSeconds / 60F);
-            int seconds = Mathf.FloorToInt(timeInSeconds % 60F);
-            string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-            writer.WriteLine($"{formattedTime},{timeInSeconds:F2}");
-        }
-
-        Debug.Log($"Timer saved to CSV at: {filePath}");
-    }
-
 }
